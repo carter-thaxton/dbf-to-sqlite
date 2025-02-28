@@ -9,8 +9,9 @@ from sqlite_utils import Database
 @click.argument("dbf_paths", type=click.Path(exists=True), nargs=-1, required=True)
 @click.argument("sqlite_db", nargs=1)
 @click.option("--table", help="Table name to use (only valid for single files)")
+@click.option("-cp","--codepage", default='ascii', help="Set codepage for dbf files (default: ascii)")
 @click.option("-v", "--verbose", help="Show what's going on", is_flag=True)
-def cli(dbf_paths, sqlite_db, table, verbose):
+def cli(dbf_paths, sqlite_db, table, codepage, verbose):
     """
     Convert DBF files (dBase, FoxPro etc) to SQLite
 
@@ -23,7 +24,7 @@ def cli(dbf_paths, sqlite_db, table, verbose):
         table_name = table if table else Path(path).stem
         if verbose:
             click.echo('Loading {} into table "{}"'.format(path, table_name))
-        dbf_table = dbf.Table(str(path))
+        dbf_table = dbf.Table(str(path), codepage=codepage)
         dbf_table.open()
         columns = dbf_table.field_names
         db[table_name].insert_all(dict(zip(columns, list(row))) for row in dbf_table)

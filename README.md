@@ -20,10 +20,11 @@ CLI tool for converting DBF files (dBase, FoxPro etc) to SQLite.
       https://github.com/simonw/dbf-to-sqlite
 
     Options:
-      --version      Show the version and exit.
-      --table TEXT   Table name to use (only valid for single files)
-      -v, --verbose  Show what's going on
-      --help         Show this message and exit.
+      --version         Show the version and exit.
+      --table TEXT      Table name to use (only valid for single files)
+      --codepage CPCODE Set codepage for dbf files (e.g. cp1251)
+      -v, --verbose     Show what's going on
+      --help            Show this message and exit.
 
 Example usage:
 
